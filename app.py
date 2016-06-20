@@ -11,10 +11,11 @@ app = Flask(__name__)
 app.config.from_object('config.Config')
 
 db.init_app(app)
-with app.test_request_context():
+
+with app.app_context():
     db.create_all()
 
-epitets = [u'великий', u"ужасный", u"всемогущий", u"владыка", u"великодушный", u"диктатор", u"тиран"]
+epithets = [u'великий', u"ужасный", u"всемогущий", u"владыка", u"великодушный", u"диктатор", u"тиран"]
 
 @app.route('/', methods=['GET'])
 def index():
@@ -27,14 +28,14 @@ def execute():
     visitor = Visitor.query.filter_by(username=name).first()
     come_back = False
     if not visitor:
-        epitet = random.choice(epitets)
-        visitor = Visitor(name, epitet)
+        epithet = random.choice(epithets)
+        visitor = Visitor(name, epithet)
         db.session.add(visitor)
         db.session.commit()
     else:
-        epitet = visitor.epitet
+        epithet = visitor.epithet
         come_back = True
-    return jsonify(name=name, epitet=epitet, come_back=come_back)
+    return jsonify(name=name, epitet=epithet, come_back=come_back)
 
 if __name__ == '__main__':
     app.run()

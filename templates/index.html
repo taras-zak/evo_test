@@ -14,7 +14,7 @@
     <div class='center'>
         <h1>Evo test task #2</h1>
 
-        <div id="mes"></div>
+        <div id="message"></div>
         <br>
         <form method="POST" id="form" action="javascript:void(null);" onsubmit="call()" name="person">
             <input type="text" name='name' 
@@ -39,11 +39,9 @@
               data: msg,
               success: function(data) {
                 $('#error').html('')
-                $('#mes').html('Привет, о ' + data.epitet+ ' ' + data.name);
-                // $('#come_back').html('');
+                $('#message').html('Привет, о ' + data.epitet+ ' ' + data.name);
                 if (data.come_back) {
-                    $('#mes').html('Рад тебя видеть снова, ' + data.epitet+ ' ' + data.name);
-                    // $('#come_back').html('Come back')
+                    $('#message').html('Рад тебя видеть снова, ' + data.epitet+ ' ' + data.name);
                 };
               },
               error:  function(xhr, str){
