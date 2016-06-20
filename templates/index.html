@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+    .center{
+        text-align: center;
+    }
+    </style>
+</head>
+<body>
+    <div class='center'>
+        <h1>Evo test task #2</h1>
+
+        <div id="mes"></div>
+        <br>
+        <form method="POST" id="form" action="javascript:void(null);" onsubmit="call()" name="person">
+            <input type="text" name='name' 
+                placeholder='Введите имя' 
+                pattern="^[А-Яа-яЁёa-zA-Z0-9]{4,}" 
+                maxlength="20" 
+                title=" имя должно содержать минимум 4 символа без пробелов"
+                required >
+            <input value="Send" type="submit">
+        </form>
+
+        <div id="error"></div>
+    </div>
+
+    <script>
+        function call() {
+            var msg   = $('#form').serialize();
+            console.log(msg);
+            $.ajax({
+              type: 'POST',
+              url: '/form',
+              data: msg,
+              success: function(data) {
+                $('#error').html('')
+                $('#mes').html('Привет, о ' + data.epitet+ ' ' + data.name);
+                // $('#come_back').html('');
+                if (data.come_back) {
+                    $('#mes').html('Рад тебя видеть снова, ' + data.epitet+ ' ' + data.name);
+                    // $('#come_back').html('Come back')
+                };
+              },
+              error:  function(xhr, str){
+                    $('#error').html('Возникла ошибка: ' + xhr.responseCode);
+                  }
+            });  
+        }
+    </script>
+</body>
+</html>
